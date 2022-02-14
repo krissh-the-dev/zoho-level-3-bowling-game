@@ -4,7 +4,7 @@ import { Rules } from '../state/rules';
 
 export class GamePlay {
   private static readonly STRIKE_BONUS = 10;
-  private static readonly SPARE_BONUS = 10;
+  private static readonly SPARE_BONUS = 5;
   private static readonly BONUS_ROLLS = 2;
   private static readonly PTS_PER_PIN = 1;
 
@@ -22,7 +22,6 @@ export class GamePlay {
 
     for (let i = 0; i < chances; i++) {
       prompt()('Press any key to roll');
-
       rollRes = this.roll();
       console.log(`This roll :            ${rollRes}`);
 
@@ -55,8 +54,8 @@ export class GamePlay {
   public play() {
     for (let round = 0; round < Rules.rounds; round++) {
       console.log(`Round ${round + 1}`);
-
       prompt()('Press any key to continue');
+
       this.round(round === Rules.rounds - 1);
       console.log('Game summary: ');
 
