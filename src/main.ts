@@ -1,6 +1,6 @@
-import { AdminControls } from './admin/controls';
+import { AdminControls } from './admin/AdminControl';
 import { Control } from './lib/Control';
-import { PlayerControls } from './player/controls';
+import { PlayerControls } from './player/PlayerControl';
 
 export class Game extends Control {
   constructor() {

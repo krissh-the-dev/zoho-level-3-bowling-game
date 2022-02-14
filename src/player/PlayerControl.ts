@@ -3,7 +3,7 @@ import { Control } from '../lib/Control';
 import { Game } from '../state/game';
 import { Rules } from '../state/rules';
 import { decorate } from '../util/decorate';
-import { GamePlay } from './gamePlay';
+import { GamePlay } from './GamePlay';
 
 export class PlayerControls extends Control {
   constructor() {
