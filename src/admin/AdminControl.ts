@@ -13,7 +13,6 @@ export class AdminControls extends Control {
       name: 'Set Rounds',
       control: async () => {
         this.rules.rounds = +prompt({ sigint: true })('Enter the number of rounds: ');
-        this.game.points = new Array(this.rules.rounds).fill(0);
       },
     },
     {

@@ -8,7 +8,11 @@ export class GamePlay {
   private static readonly BONUS_ROLLS = 2;
   private static readonly PTS_PER_PIN = 1;
 
-  constructor(private rules: Rules, private game: Game) {}
+  private noOfPlayers: number;
+
+  constructor(private rules: Rules, private game: Game) {
+    this.noOfPlayers = this.game.getNumberOfPlayers();
+  }
 
   private roll() {
     return Math.round(Math.random() * 10) + 1;
@@ -44,12 +48,12 @@ export class GamePlay {
   }
 
   private round(isFinal: boolean = false) {
-    this.game.history = new Array(this.game.players).fill([]);
-    for (let player = 0; player < this.game.players; player++) {
+    this.game.history = new Array(this.noOfPlayers).fill([]);
+    for (let player = 0; player < this.noOfPlayers; player++) {
       console.log(`Player ${player + 1}'s turn`);
       const { history, points } = this.turn(player, isFinal);
       this.game.history[player] = history;
-      this.game.points[player] += points;
+      this.game.addPoints(player, points);
     }
   }
 
@@ -61,8 +65,8 @@ export class GamePlay {
       this.round(round === this.rules.rounds - 1);
       console.log('Game summary: ');
 
-      for (let player = 0; player < this.game.players; player++) {
-        console.log(`Player ${player + 1}: ${this.game.points[player]} points`);
+      for (let player = 0; player < this.noOfPlayers; player++) {
+        console.log(`Player ${player + 1}: ${this.game.getPoints(player)} points`);
       }
     }
   }

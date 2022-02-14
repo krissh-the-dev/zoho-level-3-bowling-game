@@ -23,8 +23,9 @@ export class PlayerControls extends Control {
     {
       name: 'Set number of players',
       control: () => {
-        this.game.players = +prompt({ sigint: true })('Enter no. of players: ');
-        console.log(`Set number of players to ${this.game.players}`);
+        const count = +prompt({ sigint: true })('Enter no. of players: ');
+        this.game.setNumberOfPlayers(count);
+        console.log(`Set number of players to ${count}`);
       },
     },
     {
