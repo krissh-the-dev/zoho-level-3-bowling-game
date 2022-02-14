@@ -1,3 +1,3 @@
-import { Game } from './src/main';
+import { PinBall } from './src/main';
 
-new Game().start();
+new PinBall().start();

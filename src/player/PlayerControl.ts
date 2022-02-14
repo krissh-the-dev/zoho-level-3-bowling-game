@@ -1,12 +1,12 @@
 import prompt from 'prompt-sync';
 import { Control } from '../lib/Control';
-import { Game } from '../state/game';
-import { Rules } from '../state/rules';
+import { Game } from '../state/Game';
+import { Rules } from '../state/Rules';
 import { decorate } from '../util/decorate';
 import { GamePlay } from './GamePlay';
 
 export class PlayerControls extends Control {
-  constructor() {
+  constructor(private rules: Rules, private game: Game) {
     super();
   }
 
@@ -15,7 +15,7 @@ export class PlayerControls extends Control {
       name: 'Display rules',
       control: () => {
         console.log(decorate('RULES'));
-        for (const [ruleName, ruleValue] of Object.entries(Rules)) {
+        for (const [ruleName, ruleValue] of Object.entries(this.rules)) {
           console.log(`${ruleName} : ${ruleValue}`);
         }
       },
@@ -23,14 +23,14 @@ export class PlayerControls extends Control {
     {
       name: 'Set number of players',
       control: () => {
-        Game.players = +prompt({ sigint: true })('Enter no. of players: ');
-        console.log(`Set number of players to ${Game.players}`);
+        this.game.players = +prompt({ sigint: true })('Enter no. of players: ');
+        console.log(`Set number of players to ${this.game.players}`);
       },
     },
     {
       name: 'Play',
-      control() {
-        new GamePlay().play();
+      control: () => {
+        new GamePlay(this.rules, this.game).play();
       },
     },
   ];

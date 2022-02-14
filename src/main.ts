@@ -1,14 +1,18 @@
 import { AdminControls } from './admin/AdminControl';
 import { Control } from './lib/Control';
 import { PlayerControls } from './player/PlayerControl';
+import { Game } from './state/Game';
+import { Rules } from './state/Rules';
 
-export class Game extends Control {
+export class PinBall extends Control {
   constructor() {
     super();
   }
 
-  private adminController = new AdminControls();
-  private playerControls = new PlayerControls();
+  private game = new Game();
+  private rules = new Rules();
+  private adminController = new AdminControls(this.rules, this.game);
+  private playerControls = new PlayerControls(this.rules, this.game);
 
   protected controls = [
     {
