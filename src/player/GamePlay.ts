@@ -3,11 +3,11 @@ import { Game } from '../state/game';
 import { Rules } from '../state/rules';
 
 export class GamePlay {
-  roll() {
+  private roll() {
     return Math.round(Math.random() * 10) + 1;
   }
 
-  turn(player: number, isFinal: boolean = false) {
+  private turn(player: number, isFinal: boolean = false) {
     let rollRes = 0;
     const turnHistory = [];
     let turnPoint = 0;
@@ -21,16 +21,9 @@ export class GamePlay {
       console.log(`This roll :            ${rollRes}`);
 
       turnHistory.push(rollRes);
-      if (rollRes === 10 && i === 0) {
-        // strike
-        console.log('STRIKE!');
-        turnPoint += 10;
-        Game.hasBonus[player] = true;
-        break;
-      } else if (rollRes === 10 && i === 1) {
-        //spare
-        console.log('SPARE!');
-        turnPoint += 5;
+      if (rollRes === 10) {
+        console.log(i === 0 ? 'STRIKE' : 'SPARE');
+        turnPoint += i === 0 ? 10 : 5;
         Game.hasBonus[player] = true;
         break;
       }
@@ -39,11 +32,11 @@ export class GamePlay {
     turnPoint += turnHistory.reduce((sum, pt) => sum + pt, 0);
 
     console.log(`This turn: ${turnHistory.join(', ')}`);
-    console.log(`Player\'s points: ${turnPoint}`);
+    console.log(`Player's points: ${turnPoint}`);
     return { history: turnHistory, points: turnPoint };
   }
 
-  round(isFinal: boolean = false) {
+  private round(isFinal: boolean = false) {
     Game.history = new Array(Game.players).fill([]);
     for (let player = 0; player < Game.players; player++) {
       console.log(`Player ${player + 1}'s turn`);
@@ -53,7 +46,7 @@ export class GamePlay {
     }
   }
 
-  play() {
+  public play() {
     for (let round = 0; round < Rules.rounds; round++) {
       console.log(`Round ${round + 1}`);
 
