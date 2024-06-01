@@ -6,37 +6,37 @@ import { decorate } from '../util/decorate';
 import { GamePlay } from './GamePlay';
 
 export class PlayerControls extends Control {
-  constructor(private rules: Rules, private game: Game) {
-    super();
-  }
+    constructor(private rules: Rules, private game: Game) {
+        super();
+    }
 
-  protected controls = [
-    {
-      name: 'Display rules',
-      control: () => {
-        console.log(decorate('RULES'));
-        for (const [ruleName, ruleValue] of Object.entries(this.rules)) {
-          console.log(`${ruleName} : ${ruleValue}`);
+    protected controls = [
+        {
+            name: 'Display rules',
+            control: () => {
+                console.log(decorate('RULES'));
+                for (const [ruleName, ruleValue] of Object.entries(this.rules)) {
+                    console.log(`${ruleName} : ${ruleValue}`);
+                }
+            }
+        },
+        {
+            name: 'Set number of players',
+            control: () => {
+                const count = +prompt({ sigint: true })('Enter no. of players: ');
+                this.game.setNumberOfPlayers(count);
+                console.log(`Set number of players to ${count}`);
+            }
+        },
+        {
+            name: 'Play',
+            control: () => {
+                new GamePlay(this.rules, this.game).play();
+            }
         }
-      },
-    },
-    {
-      name: 'Set number of players',
-      control: () => {
-        const count = +prompt({ sigint: true })('Enter no. of players: ');
-        this.game.setNumberOfPlayers(count);
-        console.log(`Set number of players to ${count}`);
-      },
-    },
-    {
-      name: 'Play',
-      control: () => {
-        new GamePlay(this.rules, this.game).play();
-      },
-    },
-  ];
+    ];
 
-  async start() {
-    await this.executeController('PLAYER');
-  }
+    async start() {
+        await this.executeController('PLAYER');
+    }
 }

@@ -1,3 +1,3 @@
 export function decorate(title: string) {
-  return `<=====> ${title} <=====>`;
+    return `<=====> ${title} <=====>`;
 }
